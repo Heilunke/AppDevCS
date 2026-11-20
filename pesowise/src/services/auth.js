@@ -1,6 +1,7 @@
 import { ref } from 'vue'
 import { read, write, remove } from './storage'
 import { loadUserData, clearUserData, deleteUserData } from './store'
+import { seedDemoAccounts } from './demo'
 
 export const currentUser = ref(null)
 export const locked = ref(false)
@@ -34,6 +35,9 @@ function startSession(user) {
   currentUser.value = publicUser(user)
   loadUserData(user.id)
 }
+
+// Creates the starter accounts on the first launch
+export const seedDemos = () => seedDemoAccounts(hashPassword, randomSalt)
 
 export function restoreSession() {
   const session = read('session', null)

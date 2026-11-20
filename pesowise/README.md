@@ -20,6 +20,20 @@ Built with **Ionic Vue** and packaged as an Android APK with **Apache Cordova**.
 | Fingerprint lock | Optional lock when the app opens or comes back from the background. |
 | Settings | Allowance, weekly or monthly period, week start day, warning level, vibration on or off, change password, a "Device access" list that tests the camera, vibration and fingerprint, sample data for demos, delete all expenses, delete account. |
 
+## Starter accounts
+
+Two demo accounts are created automatically the first time the app is opened. Each one already has
+sample expenses for the current period and the 2 before it, so every screen has data to show. On the
+login screen, tap an account's button to fill in its email and password.
+
+| Name | Email | Password | Budget |
+| --- | --- | --- | --- |
+| Juan Dela Cruz | juan@pesowise.app | Juan12345 | ₱1,000 per week, warning at 80% |
+| Maria Santos | maria@pesowise.app | Maria12345 | ₱4,000 per month, warning at 70% |
+
+They are created only once. If you delete a demo account, it does not come back unless you clear the
+app's data (Android: App info > Storage > Clear data).
+
 ## Tech stack
 
 | Part | Used |
@@ -54,6 +68,7 @@ pesowise/
    ├─ services/
    │  ├─ storage.js          localStorage wrapper
    │  ├─ auth.js             Register, login, password hashing, lockout
+   │  ├─ demo.js             Starter accounts and their sample expenses
    │  ├─ store.js            Expenses, settings and categories
    │  ├─ budget.js           Week / month ranges, totals, budget status
    │  ├─ device.js           Camera, vibration, fingerprint (Cordova plugins)
@@ -164,7 +179,7 @@ Send it to the phone and install it (allow "Install unknown apps" if asked).
 
 ## Testing on a phone
 
-1. Register, then go to **Settings** and set your allowance (for example ₱1,000 per week).
+1. Log in with a starter account, or register and set your allowance in **Settings** (for example ₱1,000 per week).
 2. Tap **+** on Home and add an expense with a receipt photo.
 3. Add expenses until you pass the warning level. The phone vibrates and the Home card turns orange.
    Go over the allowance and it vibrates again and turns red.

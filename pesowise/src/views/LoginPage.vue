@@ -23,6 +23,20 @@
           <span v-else>Log in</span>
         </ion-button>
         <ion-button expand="block" fill="clear" router-link="/register">Create an account</ion-button>
+
+        <div class="card demo">
+          <p class="muted">Starter accounts (tap to fill in):</p>
+          <ion-button
+            v-for="d in DEMO_ACCOUNTS"
+            :key="d.email"
+            size="small"
+            fill="outline"
+            expand="block"
+            @click="useDemo(d)"
+          >
+            {{ d.name }} · {{ d.settings.period === 'month' ? 'monthly' : 'weekly' }}
+          </ion-button>
+        </div>
       </form>
     </ion-content>
   </ion-page>
@@ -37,12 +51,19 @@ import {
 } from '@ionic/vue'
 import { wallet } from 'ionicons/icons'
 import { login } from '../services/auth'
+import { DEMO_ACCOUNTS } from '../services/demo'
 
 const router = useRouter()
 const email = ref('')
 const password = ref('')
 const error = ref('')
 const loading = ref(false)
+
+function useDemo(d) {
+  email.value = d.email
+  password.value = d.password
+  error.value = ''
+}
 
 async function submit() {
   error.value = ''
@@ -62,3 +83,15 @@ async function submit() {
   }
 }
 </script>
+
+<style scoped>
+.demo {
+  margin-top: 16px;
+}
+.demo p {
+  margin: 0 0 8px;
+}
+.demo ion-button {
+  margin: 6px 0;
+}
+</style>

@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import { IonicVue } from '@ionic/vue'
 import App from './App.vue'
 import router from './router'
-import { restoreSession } from './services/auth'
+import { restoreSession, seedDemos } from './services/auth'
 import { ready } from './services/device'
 
 import '@ionic/vue/css/core.css'
@@ -17,7 +17,7 @@ import './theme/variables.css'
 
 restoreSession()
 
-ready.then(() => {
+Promise.all([ready, seedDemos().catch(() => {})]).then(() => {
   const app = createApp(App).use(IonicVue, { mode: 'md', hardwareBackButton: true }).use(router)
   router.isReady().then(() => app.mount('#app'))
 })
